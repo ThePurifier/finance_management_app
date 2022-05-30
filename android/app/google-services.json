@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "992025434149",
+    "project_id": "financial-management-app-dash",
+    "storage_bucket": "financial-management-app-dash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992025434149:android:c49f6059cd2ec4caac47cc",
+        "android_client_info": {
+          "package_name": "com.example.finance_management_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992025434149-ca6vbnu80cah10d57e3nd494mj1fhkq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEWUFONHhZLYeGYoxFIC3nj65flQfJQ-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992025434149-ca6vbnu80cah10d57e3nd494mj1fhkq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
