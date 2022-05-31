@@ -1,5 +1,7 @@
 import 'package:finance_management_app/pages/pages.dart';
 import 'package:finance_management_app/theme.dart';
+import 'package:finance_management_app/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,15 +21,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: ValueListenableBuilder(
-        valueListenable: pageIndex,
-        builder: (BuildContext context, int value, _) {
-          return pages[value];
-        },
+      body: SafeArea(
+        child: ValueListenableBuilder(
+          valueListenable: pageIndex,
+          builder: (BuildContext context, int value, _) {
+            return pages[value];
+          },
+        ),
       ),
       bottomNavigationBar: _BottomNavigationBar(
         onItemSelected: (index) {
@@ -62,35 +62,53 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: true,
-      child: Container(
-        color: Colors.red,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _NavigationBarItem(
-              iconData: Icons.home, 
-              index: 0, 
-              isSelected: (selectedIndex == 0),
-              onTap: handleItemSelected),
-            _NavigationBarItem(
-              iconData: Icons.stacked_bar_chart, 
-              index: 1,  
-              isSelected: (selectedIndex == 1),
-              onTap: handleItemSelected),
-            _NavigationBarItem(
-              iconData: Icons.wallet, 
-              index: 2,
-              isSelected: (selectedIndex == 2),  
-              onTap: handleItemSelected),
-            _NavigationBarItem(
-              iconData: Icons.person, 
-              index: 3,  
-              isSelected: (selectedIndex == 3),
-              onTap: handleItemSelected),
-          ],
+    final brightness = Theme.of(context).brightness;
+    return Card(
+      color: (brightness == Brightness.light) ? Colors.transparent : null,
+      elevation: 0,
+      margin: const EdgeInsets.all(0),
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavigationBarItem(
+                iconData: Icons.home, 
+                index: 0, 
+                isSelected: (selectedIndex == 0),
+                onTap: handleItemSelected
+              ),
+              _NavigationBarItem(
+                iconData: Icons.stacked_bar_chart, 
+                index: 1,  
+                isSelected: (selectedIndex == 1),
+                onTap: handleItemSelected
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: GlowingActionButton(
+                  color: AppColors.secondary, 
+                  icon: CupertinoIcons.add, 
+                  onPressed: () {print("Hello");}
+                ),
+              ),
+              _NavigationBarItem(
+                iconData: Icons.wallet, 
+                index: 2,
+                isSelected: (selectedIndex == 2),  
+                onTap: handleItemSelected
+              ),
+              _NavigationBarItem(
+                iconData: Icons.person, 
+                index: 3,  
+                isSelected: (selectedIndex == 3),
+                onTap: handleItemSelected
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -123,11 +141,14 @@ class _NavigationBarItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              iconData, 
-              size: 35,
-              color: isSelected ? AppColors.secondary : null,
-              )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                iconData, 
+                size: 30,
+                color: isSelected ? AppColors.secondary : null,
+                ),
+            )
           ],
         ),
       ),

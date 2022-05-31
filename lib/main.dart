@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MyApp(appTheme: AppTheme(),)
-    );
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: appTheme.light,
       darkTheme: appTheme.dark,
+      themeMode: ThemeMode.light,
       title: 'Financial managment',
       home: HomeScreen(),
     );
