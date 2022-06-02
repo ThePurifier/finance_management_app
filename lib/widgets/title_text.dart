@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-class TitleText extends StatelessWidget {
+class TitleText extends StatefulWidget {
 
   final Color? color;
   final String text;
@@ -18,14 +17,19 @@ class TitleText extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TitleText> createState() => _TitleTextState();
+}
+
+class _TitleTextState extends State<TitleText> {
+  @override
   Widget build(BuildContext context) {
     return Text(
-      text,
-      overflow: textOverflow, 
+      widget.text,
+      overflow: widget.textOverflow, 
       style: TextStyle(
-        fontSize: size,
+        fontSize: widget.size,
         fontWeight: FontWeight.bold,
-        color: color,
+        color: widget.color,
       ),
     );
   }

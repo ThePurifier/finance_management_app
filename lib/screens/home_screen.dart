@@ -1,4 +1,5 @@
 import 'package:finance_management_app/pages/pages.dart';
+import 'package:finance_management_app/screens/screens.dart';
 import 'package:finance_management_app/theme.dart';
 import 'package:finance_management_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -67,48 +68,46 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
       color: (brightness == Brightness.light) ? Colors.transparent : null,
       elevation: 0,
       margin: const EdgeInsets.all(0),
-      child: SafeArea(
-        top: false,
-        bottom: true,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavigationBarItem(
-                iconData: Icons.home, 
-                index: 0, 
-                isSelected: (selectedIndex == 0),
-                onTap: handleItemSelected
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _NavigationBarItem(
+              iconData: Icons.home, 
+              index: 0, 
+              isSelected: (selectedIndex == 0),
+              onTap: handleItemSelected
+            ),
+            _NavigationBarItem(
+              iconData: Icons.bar_chart, 
+              index: 1,  
+              isSelected: (selectedIndex == 1),
+              onTap: handleItemSelected
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: GlowingActionButton(
+                color: AppColors.secondary, 
+                icon: CupertinoIcons.add, 
+                onPressed: () {
+                  // Navigator.push('/addexp');
+                }
               ),
-              _NavigationBarItem(
-                iconData: Icons.stacked_bar_chart, 
-                index: 1,  
-                isSelected: (selectedIndex == 1),
-                onTap: handleItemSelected
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: GlowingActionButton(
-                  color: AppColors.secondary, 
-                  icon: CupertinoIcons.add, 
-                  onPressed: () {print("Hello");}
-                ),
-              ),
-              _NavigationBarItem(
-                iconData: Icons.wallet, 
-                index: 2,
-                isSelected: (selectedIndex == 2),  
-                onTap: handleItemSelected
-              ),
-              _NavigationBarItem(
-                iconData: Icons.person, 
-                index: 3,  
-                isSelected: (selectedIndex == 3),
-                onTap: handleItemSelected
-              ),
-            ],
-          ),
+            ),
+            _NavigationBarItem(
+              iconData: Icons.payment, 
+              index: 2,
+              isSelected: (selectedIndex == 2),  
+              onTap: handleItemSelected
+            ),
+            _NavigationBarItem(
+              iconData: Icons.person, 
+              index: 3,  
+              isSelected: (selectedIndex == 3),
+              onTap: handleItemSelected
+            ),
+          ],
         ),
       ),
     );

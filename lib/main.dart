@@ -1,8 +1,12 @@
 import 'package:finance_management_app/screens/screens.dart';
 import 'package:finance_management_app/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MyApp(appTheme: AppTheme(),)
   );
@@ -24,7 +28,14 @@ class MyApp extends StatelessWidget {
       darkTheme: appTheme.dark,
       themeMode: ThemeMode.light,
       title: 'Financial managment',
-      home: HomeScreen(),
+      initialRoute: '/signin',
+      home: const SignInScreen(),
+      routes: <String, WidgetBuilder>{
+        '/home' : (BuildContext context) => HomeScreen(),
+        '/signin' : (BuildContext context) => const SignInScreen(),
+        '/signup' : (BuildContext context) => const SignUpScreen(),
+        '/addexp' : (BuildContext context) => const AddExpenseScreen(),
+      },
     );
   }
 }
