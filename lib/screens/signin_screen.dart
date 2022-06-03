@@ -1,6 +1,7 @@
 import 'package:finance_management_app/firebase_options.dart';
 import 'package:finance_management_app/screens/screens.dart';
 import 'package:finance_management_app/theme.dart';
+import 'package:finance_management_app/utilities/utilities.dart';
 import 'package:finance_management_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,6 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
@@ -122,11 +124,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                         );                                        
                                       } on FirebaseAuthException catch(e) {
                                         if(e.code == 'user-not-found')  {
-                                          print('User Not found!');
+                                          showToast("User not found");
                                         } else if (e.code == 'wrong-password'){
-                                          print('Wrong password!');
+                                          showToast('Wrong password!');
                                         } else {
-                                          print(e.code);
+                                          showToast(e.code);
                                         }
                                       };
                                     }
@@ -135,7 +137,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
-                                    onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));},
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));  
+                                    },
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
@@ -170,6 +174,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
+              
             }
           }
         ),

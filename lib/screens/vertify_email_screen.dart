@@ -1,4 +1,6 @@
+import 'package:finance_management_app/screens/screens.dart';
 import 'package:finance_management_app/theme.dart';
+import 'package:finance_management_app/utilities/utilities.dart';
 import 'package:finance_management_app/widgets/custom_big_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +17,6 @@ class _VertifyEmailScreenState extends State<VertifyEmailScreen> {
 
   late final TextEditingController _email;
   late final TextEditingController _password;
-  late String message = "You should use strong password";
-
 
     @override
   void initState() {
@@ -95,9 +95,9 @@ class _VertifyEmailScreenState extends State<VertifyEmailScreen> {
               ),
             ),
             const SizedBox(height: 15),
-            Text(
-              'Hint: $message',
-              style: const TextStyle(
+            const Text(
+              'Hint: You should use strong password!',
+              style: TextStyle(
                 fontSize: 16,
               ),
             ),
@@ -115,27 +115,19 @@ class _VertifyEmailScreenState extends State<VertifyEmailScreen> {
                         email: email,
                         password: password,
                       );
-
                       final user = await FirebaseAuth.instance.currentUser;
                       await user?.sendEmailVerification();
-                      print("User is : " + user.toString());
+                      showToast("Vertification link sent!");
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignInScreen()));
                     } on FirebaseAuthException catch (e) {
                       if(e.code == 'weak-password') {
-                        setState(() {
-                          this.message = "Password is too weak";
-                        });
+                        showToast("Password is too weak");
                       } else if( e.code == 'email-already-in-use') {
-                        setState(() {
-                          this.message = "Email already in use!";
-                        });
+                        showToast("Email already in use!");  
                       } else if (e.code == "invalid-email"){
-                        setState(() {
-                          this.message = "Invalid email!";
-                        });
+                        showToast("Invalid email!");
                       } else {
-                        setState(() {
-                          this.message = "Error: " + e.code; 
-                        });
+                        showToast("Error: " + e.code);
                       }
                     }
                   }, 

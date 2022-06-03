@@ -1,15 +1,26 @@
+import 'dart:convert';
+import 'package:finance_management_app/models/payment_data.dart';
 import 'package:finance_management_app/pages/pages.dart';
-import 'package:finance_management_app/screens/screens.dart';
 import 'package:finance_management_app/theme.dart';
 import 'package:finance_management_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
   HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   final ValueNotifier<int> pageIndex = ValueNotifier(0);
+
+
+  late TabController _tabController;
+  late List<Payment> transactions = [];
 
   final pages = const [
     HomePage(),
@@ -17,6 +28,20 @@ class HomeScreen extends StatelessWidget {
     WalletPage(),
     ProfilePage(),
   ];
+
+   void fetchTransaction() async {
+    final response = await http
+        .get(Uri.parse('https://api.jsonbin.io/b/628f9857402a5b38020ec5c4/1'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        transactions = (jsonDecode(response.body) as List).map((data) => Transaction.fromJson(data)).toList();
+      });
+    } else {
+
+      throw Exception('Failed to load transaction');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
