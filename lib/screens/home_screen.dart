@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management_app/models/payment_data.dart';
 import 'package:finance_management_app/pages/pages.dart';
 import 'package:finance_management_app/theme.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     if (response.statusCode == 200) {
       setState(() {
-        transactions = (jsonDecode(response.body) as List).map((data) => Transaction.fromJson(data)).toList();
+        transactions = (jsonDecode(response.body) as List).map((data) => Payment.fromJson(data)).toList();
       });
     } else {
 
